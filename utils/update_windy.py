@@ -6,12 +6,12 @@ import os
 import sqlite3
 import urllib.request
 
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta
 from time import sleep
 
 
 def _windy(windy_api_key):
-    update_time = datetime.now(UTC)
+    update_time = datetime.now()
 
     db = sqlite3.connect(os.getenv('STATIONS_DB', 'stations.db'))
     db.row_factory = sqlite3.Row
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         update_time = os.environ.get('LAST_WINDY_UPDATE')
         if update_time:
             update_time = datetime.strptime(update_time, '%Y-%m-%dT%H:%M:%S')
-        if update_time is None or update_time < datetime.utcnow() + timedelta(minutes=5): 
+        if update_time is None or update_time < datetime.now() + timedelta(minutes=5): 
             try:
                 update_time = _windy(windy_api_key)
                 os.environ['LAST_WINDY_UPDATE'] = update_time.strftime('%Y-%m-%dT%H:%M:%S')
