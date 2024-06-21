@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Simple upload WSGI application
+Transform data from weather station and upload it to Windy.com
 """
 
 import json
