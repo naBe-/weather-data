@@ -1,0 +1,17 @@
+services:
+  windy-transform:
+    image: windy-transform
+    ports:
+      - "8080:80"
+    environment:
+      WINDY_API_KEY: ${WINDY_API_KEY}
+    volumes:
+      - db_data:/app/db
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./db
+      o: bind

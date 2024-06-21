@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Environments
+.env
+env
+.venv
+venv
+
+# Instance specific data
+db/stations.db
+
+# Vi temporary files
+.*.swp
+
