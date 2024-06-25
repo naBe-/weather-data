@@ -13,14 +13,14 @@ CREATE TABLE stations (
 );
 
 CREATE TABLE windy_observations (
-	station INTEGER,
+	station INTEGER PRIMARY KEY,
 	dateutc TEXT,
 	temp REAL,
 	dewpoint REAL, 
 	windspeedmph INTEGER,
 	winddir INTEGER, 
 	windgustmph INTEGER,
-        rh INTEGER
+        rh INTEGER,
 	uv INTEGER,
 	rainin INTEGER,
 	baromin INTEGER,

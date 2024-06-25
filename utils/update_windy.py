@@ -23,8 +23,10 @@ def _windy(windy_api_key):
         for inspect in stations_db:
             station = {k: inspect[k] for k in inspect.keys()}
             del station['key']
+            stattions.append(station)
         for inspect in observations_db:
             observation = {k: inspect[k] for k in inspect.keys()}
+            observations.append(observation)
     except sqlite3.Error:
         logging.exception("Unable to retrieve stations and/or observation data")
     finally:
