@@ -1,0 +1,11 @@
+[Unit]
+Description=Transform weather station data and upload to Windy
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/windy-transform
+ExecStart=start.sh
+ExecStop=stop.sh
+KillSignall=SIGINT
+Restart=on-failure

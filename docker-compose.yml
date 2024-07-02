@@ -1,6 +1,7 @@
 services:
   windy-transform:
     image: windy-transform
+    container_name: windy-transform
     ports:
       - "8080:80"
     environment:
