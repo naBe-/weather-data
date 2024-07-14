@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/windy-transform
-ExecStart=start.sh
-ExecStop=stop.sh
+ExecStart=/opt/windy-transform/start.sh
+ExecStop=/opt/windy-transform/stop.sh
 KillSignall=SIGINT
 Restart=on-failure
