@@ -1,7 +1,7 @@
 services:
-  windy-transform:
-    image: windy-transform
-    container_name: windy-transform
+  weather-data:
+    image: weather-data
+    container_name: weather-data
     ports:
       - "8080:80"
     environment:

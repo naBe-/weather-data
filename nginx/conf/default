@@ -6,8 +6,8 @@ server {
 
 	server_name _;
 
-	location ~ /windy-transform/ {
-		uwsgi_pass unix:///tmp/windy-transform.sock;
+	location ~ /weather-data/ {
+		uwsgi_pass unix:///tmp/weather-data.sock;
 		include uwsgi_params;
 	}
 

@@ -64,6 +64,7 @@ def _windy(windy_api_key):
         logging.debug("WINDY DATA: ", payload)
         logging.debug("WINDY STATUS: ", r.status)
         logging.debug("WINDY RESPONSE: ", r.read())
+        logging.info("Windy Update: %s", r.status)
         return update_time
     except Exception as e:
         logging.exception('Cannot upload data to Windy!')

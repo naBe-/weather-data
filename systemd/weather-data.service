@@ -5,8 +5,8 @@ After=multi-user.target
 [Service]
 Type=simple
 RemainAfterExit=yes
-WorkingDirectory=/opt/windy-transform
-ExecStart=/bin/bash -c 'cd /opt/windy-transform; ./start.sh'
-ExecStop=/bin/bash -c 'cd /opt/windy-transform; ./stop.sh'
+WorkingDirectory=/opt/weather-data
+ExecStart=/bin/bash -c 'cd /opt/weather-data; ./start.sh'
+ExecStop=/bin/bash -c 'cd /opt/weather-data; ./stop.sh'
 KillSignall=SIGINT
 Restart=on-failure

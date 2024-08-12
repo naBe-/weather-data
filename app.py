@@ -48,7 +48,7 @@ def update_data(station, data):
         station, dateutc, temp, dewpoint, windspeedmph, winddir, windgustmph,
         rh, uv, rainin, baromin
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(station) DO UPDATE SET
+        ON CONFLICT(unique_observation) DO UPDATE SET
         dateutc=?, temp=?, dewpoint=?,
         windspeedmph=?, winddir=?, windgustmph=?,
         rh=?, uv=?, rainin=?, baromin=?
@@ -60,7 +60,7 @@ def update_data(station, data):
     finally:
         db.close()
 
-def windy_transform(env, start_response):
+def weather_data(env, start_response):
     path = env['PATH_INFO'].split('/')
     station_key = path[-1]
     station_id = path[-2]
