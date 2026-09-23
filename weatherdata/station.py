@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
-
-"""
-Transform data from weather station and upload it to Windy.com
-"""
-
-import json
 import logging
 import os
 import sqlite3
-import urllib.parse
 
 
-from weathercalc.dewpoint import dew_point
+from weatherdata.calc.dewpoint import dew_point
 
 
 def get_station_info(station_id, station_key):
@@ -48,7 +40,7 @@ def update_data(station, data):
         station, dateutc, temp, dewpoint, windspeedmph, winddir, windgustmph,
         rh, uv, rainin, baromin
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(station) DO UPDATE SET
+        ON CONFLICT(unique_observation) DO UPDATE SET
         dateutc=?, temp=?, dewpoint=?,
         windspeedmph=?, winddir=?, windgustmph=?,
         rh=?, uv=?, rainin=?, baromin=?
@@ -60,30 +52,3 @@ def update_data(station, data):
     finally:
         db.close()
 
-def windy_transform(env, start_response):
-    path = env['PATH_INFO'].split('/')
-    station_key = path[-1]
-    station_id = path[-2]
-    station_info = get_station_info(station_id, station_key)
-
-    if not station_info:
-        start_response('404 Station Not Found', [('Content-Type', 'text/plain')])
-        return [b'STATION NOT IDENTIFIED']
-
-    data = urllib.parse.parse_qs(env['wsgi.input'].readline().decode(), True)
-    try:
-        with open(f"./logs/station_{station_id}.data", "w") as fd:
-            json.dump(data, fd)
-    except PermissionError as e:
-        pass
-    logging.debug("DATA RCVD: %s", data)
-    
-    try:
-        update_data(station_info, data)
-    except KeyError as kerr:
-        logging.exception("Key not found: %s", kerr)
-        start_response('400 Bad Request', [('Content-Type', 'text/plain')])
-        return [b'BAD INPUT DATA']
-
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return [b'KO']

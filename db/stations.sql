@@ -13,18 +13,18 @@ CREATE TABLE stations (
 );
 
 CREATE TABLE windy_observations (
-	station INTEGER,
-	dateutc TEXT,
-	temp REAL,
-	dewpoint REAL, 
-	windspeedmph INTEGER,
-	winddir INTEGER, 
-	windgustmph INTEGER,
+        station INTEGER,
+        dateutc TEXT,
+        temp REAL,
+        dewpoint REAL,
+        windspeedmph INTEGER,
+        winddir INTEGER,
+        windgustmph INTEGER,
         rh INTEGER,
-	uv INTEGER,
-	rainin INTEGER,
-	baromin INTEGER,
-	FOREIGN KEY(station) REFERENCES stations(station),
- 	CONSTRAINT unique_observation PRIMARY KEY(station, dateutc)
+        uv INTEGER,
+        rainin INTEGER,
+        baromin INTEGER,
+        FOREIGN KEY(station) REFERENCES stations(station),
+        CONSTRAINT unique_observation PRIMARY KEY(station, dateutc)
 );
 

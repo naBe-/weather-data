@@ -9,6 +9,8 @@ import urllib.request
 from datetime import datetime, timedelta
 from time import sleep
 
+logging.basicConfig(level=logging.DEBUG)
+
 
 def _windy(windy_api_key):
     update_time = datetime.now()
@@ -23,7 +25,7 @@ def _windy(windy_api_key):
         for inspect in stations_db:
             station = {k: inspect[k] for k in inspect.keys()}
             del station['key']
-            stattions.append(station)
+            stations.append(station)
         for inspect in observations_db:
             observation = {k: inspect[k] for k in inspect.keys()}
             observations.append(observation)
@@ -61,10 +63,9 @@ def _windy(windy_api_key):
                                    },
                                    method='POST')
         r = urllib.request.urlopen(r)
-        logging.debug("WINDY DATA: ", payload)
-        logging.debug("WINDY STATUS: ", r.status)
-        logging.debug("WINDY RESPONSE: ", r.read())
-        logging.info("Windy Update: %s", r.status)
+        logging.debug("WINDY DATA: %s", payload)
+        logging.debug("WINDY STATUS: %s", r.status)
+        logging.debug("WINDY RESPONSE: %s", r.read().decode('utf8'))
         return update_time
     except Exception as e:
         logging.exception('Cannot upload data to Windy!')

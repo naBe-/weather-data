@@ -1,13 +1,14 @@
 services:
-  weather-data:
-    image: weather-data
-    container_name: weather-data
+  windy-transform:
+    image: windy-transform
+    container_name: windy-transform
     ports:
       - "8080:80"
     environment:
       WINDY_API_KEY: ${WINDY_API_KEY}
     volumes:
       - db_data:/app/db
+      - ./logs:/app/logs
 
 volumes:
   db_data:

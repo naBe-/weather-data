@@ -1,0 +1,12 @@
+[Unit]
+Description=Transform weather station data and upload to Windy
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/bin/bash -c 'cd /opt/windy-transform; ./start.sh'
+ExecStop=/bin/bash -c 'cd /opt/windy-transform; ./stop.sh'
+
+[Install]
+WantedBy=multi-user.target
+
