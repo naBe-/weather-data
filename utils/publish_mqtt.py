@@ -12,10 +12,10 @@ from time import sleep
 
 DATA_FILE = './logs/station_0.data'
 TOPIC = 'weather/temperature/in'
-MQTT_BROKER = '192.168.3.10'
-MQTT_PORT = 1883
-USERNAME = 'weatherstation'
-PASSWORD = 'xxxxxx'
+MQTT_BROKER = os.getenv('MQTT_BROKER')
+MQTT_PORT = int(os.getenv('MQTT_PORT', '1883'))
+USERNAME = os.getenv('MQTT_USERNAME')
+PASSWORD = os.getenv('MQTT_PASSWORD')
 FIRST_RECONNECT_DELAY = 1
 RECONNECT_RATE = 2
 MAX_RECONNECT_DELAY = 60
@@ -61,7 +61,8 @@ def connect_mqtt():
             reconnect_count += 1
 
     client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION2)
-    client.username_pw_set(USERNAME, PASSWORD)
+    if USERNAME:
+        client.username_pw_set(USERNAME, PASSWORD)
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.connect(MQTT_BROKER, MQTT_PORT)
@@ -70,6 +71,9 @@ def connect_mqtt():
 
 def loop():
     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    if not MQTT_BROKER:
+        logging.error("MQTT_BROKER is not set. Configure it in config/local.")
+        sys.exit(1)
     client = connect_mqtt()
     client.loop_start()
     publish = partial(publish_data, mqtt=client)

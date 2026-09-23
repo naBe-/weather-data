@@ -1,0 +1,7 @@
+# Copy to config/local and fill in. config/local is not tracked by git.
+
+# MQTT broker for utils/publish_mqtt.py
+export MQTT_BROKER=
+export MQTT_PORT=1883
+export MQTT_USERNAME=
+export MQTT_PASSWORD=

@@ -16,6 +16,7 @@ venv
 db/stations.db
 stations.db
 logs/
+config/local
 
 # Vi temporary files
 .*.swp

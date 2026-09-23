@@ -1,2 +1,8 @@
-export WINDY_API_KEY=xxxxxx
 export STATIONS_DB=db/stations.db
+
+# Instance specific settings and credentials, not tracked by git.
+# See config/local.example
+CONFIG_DIR=$(dirname "${BASH_SOURCE[0]}")
+if [ -f "${CONFIG_DIR}/local" ]; then
+	source "${CONFIG_DIR}/local"
+fi

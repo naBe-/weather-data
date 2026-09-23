@@ -4,8 +4,6 @@ services:
     container_name: windy-transform
     ports:
       - "8080:80"
-    environment:
-      WINDY_API_KEY: ${WINDY_API_KEY}
     volumes:
       - db_data:/app/db
       - ./logs:/app/logs
