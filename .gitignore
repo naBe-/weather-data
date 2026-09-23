@@ -24,3 +24,7 @@ logs/
 # Claude
 .claude/
 
+# IDE
+.idea/
+.vscode/
+
