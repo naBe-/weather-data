@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from weathercalc.dewpoint import dew_point
 
 
-LOGS_DIR = os.getenv('LOGS_DIR', './logs')
+LOGS_DIR = os.getenv('LOGS_DIR', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs'))
 DATEUTC_FMT = '%Y-%m-%d %H:%M:%S'
 
 
@@ -87,8 +87,8 @@ def windy_transform(env, start_response):
         with open(f"{data_file}.tmp", "w") as fd:
             json.dump(data, fd)
         os.replace(f"{data_file}.tmp", data_file)
-    except PermissionError as e:
-        pass
+    except OSError:
+        logging.exception("Unable to save data of station %s to %s", station_id, data_file)
     logging.debug("DATA RCVD: %s", data)
     
     try:
