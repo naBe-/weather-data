@@ -11,6 +11,11 @@ server {
 		include uwsgi_params;
 	}
 
+	location /api/ {
+		uwsgi_pass unix:///tmp/windy-transform.sock;
+		include uwsgi_params;
+	}
+
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
