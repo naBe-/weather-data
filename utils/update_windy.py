@@ -129,12 +129,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
             prog='update_windy',
             description='Upload latest station observations to Windy.com')
-    parser.add_argument('--log', help="Log level", default='DEBUG')
+    parser.add_argument('--log', help="Log level",
+                        default=os.getenv('LOG_LEVEL', 'INFO'))
     parser.add_argument('--once', help="Upload once and exit",
                         action='store_true')
     args = parser.parse_args()
 
     logging.basicConfig(level=args.log.upper())
+    logging.info("Windy uploader started, uploading every %s seconds",
+                 UPDATE_INTERVAL)
 
     uploaded = {}
     while True:
